@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Generator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .btn-download {
+      margin-top: 15px;
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+
+    .btn-download:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-control {
+      border-color: #ccc;
+    }
+
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="m-4 text-center" style="color: #007bff;">File Generator</h2>
+    
+    <div class="form-group">
+      <label for="title">Name of file(Optional):</label>
+      <input type="text" class="form-control" id="title" placeholder="Enter title">
+    </div>
+    <div class="form-group">
+      <label for="content">Content:</label>
+      <textarea class="form-control" id="content" rows="10" style="width: 100%;" placeholder="Enter text"></textarea>
+    </div>
+    <button class="btn btn-primary btn-download btn-block">Download File</button>
+    
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const downloadButton = document.querySelector('.btn-download');
+
+      downloadButton.addEventListener('click', function() {
+        const title = document.querySelector('#title').value;
+        const content = document.querySelector('#content').value;
+
+        const filename = title.trim() !== '' ? `${title}.c` : 'assignment.c';
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+
+        URL.revokeObjectURL(url);
+      });
+    });
+  </script>
+</body>
+</html>
